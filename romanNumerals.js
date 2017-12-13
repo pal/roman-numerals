@@ -1,64 +1,35 @@
 function romanNumerals () {
-  function getA (num) {
-    if (num.left >= 90 && num.left < 100) {
-      num.roman += 'XC'
-      num.left = num.left - 90
-    }
-    if (num.left >= 50 && num.left < 100) {
-      num.roman += 'L'
-      num.left = num.left - 50
-    }
-    if (num.left === (50 - 10)) {
-      num.roman += 'XL'
-      num.left = num.left - (50 - 10)
-    }
-    if (num.left >= 10 && num.left < (50 - 10)) {
-      num.roman += 'X'
-      num.left = num.left - 10
-    }
-    if (num.left === (10 - 1)) {
-      num.roman += 'IX'
-      num.left = num.left - (10 - 1)
-    }
-    if (num.left >= 5 && num.left < (10 - 1)) {
-      num.roman += 'V'
-      num.left = num.left - 5
-    }
-    if (num.left === (5 - 1)) {
-      num.roman += 'IV'
-      num.left = num.left - (5 - 1)
-    }
-    if (num.left > 0 && num.left < (5 - 1)) {
-      num.roman += 'I'
-      num.left--
-    }
-    console.log(num)
-
-    if (num.left === 0) return num
-    else return getA(num)
-  }
+  var table = [
+    {min: 1000, max: 999999, char: 'M'},
+    {min: 900, max: 999, char: 'CM'},
+    {min: 500, max: 899, char: 'D'},
+    {min: 400, max: 499, char: 'CD'},
+    {min: 100, max: 399, char: 'C'},
+    {min: 90, max: 99, char: 'XC'},
+    {min: 50, max: 89, char: 'L'},
+    {min: 40, max: 49, char: 'XL'},
+    {min: 10, max: 39, char: 'X'},
+    {min: 9, max: 9, char: 'IX'},
+    {min: 5, max: 8, char: 'V'},
+    {min: 4, max: 4, char: 'IV'},
+    {min: 1, max: 3, char: 'I'}
+  ]
 
   /**
    * Arabic to Roman
    */
   this.ator = function (arabic) {
     if (arabic < 1) return 'nulla'
-
-    let num = {initial: arabic, left: arabic, roman: ''}
-
-    return getA(num).roman
-    /*
-
-    switch (arabic) {
-      case 1: return 'I'
-      case 5: return 'V'
-      case 10: return 'X'
-      case 50: return 'L'
-      case 100: return 'C'
-      case 500: return 'D'
-      case 1000: return 'M'
+    let num = {initial: arabic, left: arabic, roman: '', calls: 0}
+    while (num.left > 0) {
+      for (var i = 0; i < table.length; i++) {
+        if (num.left >= table[i].min && num.left <= table[i].max) {
+          num.roman += table[i].char
+          num.left = num.left - table[i].min
+        }
+      }
     }
-    return 'nulla' */
+    return num.roman
   }
 
   /**
