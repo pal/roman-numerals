@@ -33,7 +33,7 @@ function romanNumerals () {
   }
 
   /**
-   * Arabic to Roman
+   * Roman to Arabic
    */
   this.rtoa = function (roman) {
     if (roman === 'nulla') return 0
