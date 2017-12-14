@@ -3,12 +3,20 @@ var RomanNumerals = require('./romanNumerals')
 var roman = new RomanNumerals()
 
 let counter = 0
-function ator (a, r) {
+function compare (expected, actual, source) {
   counter++
-  let romNum = roman.ator(a)
-  if (r !== romNum) throw new Error('Expected ' + r + ' from ' + a + ' but got ' + romNum)
+  if (expected !== actual) throw new Error('Expected ' + expected + ' from ' + source + ' but got ' + actual)
 }
 
+function ator (a, r) {
+  compare(r, roman.ator(a), a)
+}
+
+function rtoa (a, r) {
+  compare(a, roman.rtoa(r), r)
+}
+
+// Arabic to Roman
 ator(-1, 'nulla')
 ator(0, 'nulla')
 ator(1, 'I')
@@ -22,9 +30,6 @@ ator(8, 'VIII')
 ator(9, 'IX')
 ator(10, 'X')
 ator(11, 'XI')
-
-// Base cases
-ator(10, 'X')
 ator(15, 'XV')
 ator(20, 'XX')
 ator(22, 'XXII')
@@ -54,5 +59,58 @@ ator(789, 'DCCLXXXIX')
 ator(844, 'DCCCXLIV')
 ator(999, 'CMXCIX')
 ator(1000, 'M')
+ator(1234, 'MCCXXXIV')
+ator(2345, 'MMCCCXLV')
+ator(2469, 'MMCDLXIX')
+ator(3888, 'MMMDCCCLXXXVIII')
+ator(3978, 'MMMCMLXXVIII')
+
+// Roman to Arabic
+rtoa(0, 'nulla')
+rtoa(1, 'I')
+rtoa(2, 'II')
+rtoa(3, 'III')
+rtoa(4, 'IV')
+rtoa(5, 'V')
+rtoa(6, 'VI')
+rtoa(7, 'VII')
+rtoa(8, 'VIII')
+rtoa(9, 'IX')
+rtoa(10, 'X')
+rtoa(11, 'XI')
+rtoa(15, 'XV')
+rtoa(20, 'XX')
+rtoa(22, 'XXII')
+rtoa(27, 'XXVII')
+rtoa(30, 'XXX')
+rtoa(40, 'XL')
+rtoa(49, 'XLIX')
+rtoa(50, 'L')
+rtoa(60, 'LX')
+rtoa(76, 'LXXVI')
+rtoa(84, 'LXXXIV')
+rtoa(89, 'LXXXIX')
+rtoa(90, 'XC')
+rtoa(95, 'XCV')
+rtoa(99, 'XCIX')
+rtoa(100, 'C')
+rtoa(109, 'CIX')
+rtoa(123, 'CXXIII')
+rtoa(323, 'CCCXXIII')
+rtoa(349, 'CCCXLIX')
+rtoa(400, 'CD')
+rtoa(500, 'D')
+rtoa(523, 'DXXIII')
+rtoa(589, 'DLXXXIX')
+rtoa(691, 'DCXCI')
+rtoa(789, 'DCCLXXXIX')
+rtoa(844, 'DCCCXLIV')
+rtoa(999, 'CMXCIX')
+rtoa(1000, 'M')
+rtoa(1234, 'MCCXXXIV')
+rtoa(2345, 'MMCCCXLV')
+rtoa(2469, 'MMCDLXIX')
+rtoa(3888, 'MMMDCCCLXXXVIII')
+rtoa(3978, 'MMMCMLXXVIII')
 
 console.log('Good job! ' + counter + ' tests ran successfully!')
